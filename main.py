@@ -2,7 +2,7 @@ import os.path
 
 import flask_login
 from flask import Flask, render_template, request, url_for
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 
@@ -34,7 +34,7 @@ def load_user(user_id):
 
 @app.route("/index")
 def index():
-    return render_template("base.html", title="Blackland Radio")
+    return render_template("main_page.html", title="Blackland Radio")
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def register():
         )
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/index')
+        return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -70,7 +70,7 @@ def login():
         user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+            return redirect("/index")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
@@ -83,6 +83,13 @@ def album_creation():
     db_sess = db_session.create_session()
     user = flask_login.current_user
     return AlbumCreationPage(app, user, db_sess, form).response()
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/login")
 
 
 if __name__ == '__main__':
