@@ -25,6 +25,9 @@ def global_init(db_file):
 
     from . import __all_models
     from . import user
+    from . import album
+    from . import genre
+    from . import song
 
     SqlAlchemyBase.metadata.create_all(engine)
 

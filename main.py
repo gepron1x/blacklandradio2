@@ -1,17 +1,35 @@
-from flask import Flask, render_template
+import os.path
+
+import flask_login
+from flask import Flask, render_template, request, url_for
+from flask_login import LoginManager, login_user
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 
 from data import db_session
-from register import RegisterForm
+from data.album import Genre, Album
+from data.user import BlacklandUser
+from form.album_creation import AlbumCreationForm
+from form.auth import RegisterForm, LoginForm
+from pages.album_creation_page import AlbumCreationPage
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['UPLOAD_FOLDER'] = '/cdn/albums/'
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 def main():
     db_session.global_init("db/blacklandradio.db")
     app.run()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(BlacklandUser).get(user_id)
 
 
 @app.route("/index")
@@ -29,12 +47,12 @@ def register():
                                    form=form,
                                    message="Пароли не совпадают")
         db_sess = db_session.create_session()
-        if db_sess.query(BlacklandUser).filter(BlacklandUser.login == form.login.data).first():
+        if db_sess.query(BlacklandUser).filter(BlacklandUser.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
         user = BlacklandUser(
-            login=form.login.data,
+            email=form.email.data,
             password=generate_password_hash(form.password.data),
             description=form.description.data
         )
@@ -42,6 +60,29 @@ def register():
         db_sess.commit()
         return redirect('/index')
     return render_template('register.html', title='Регистрация', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/")
+        return render_template('login.html',
+                               message="Неправильный логин или пароль",
+                               form=form)
+    return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/albums/create', methods=['GET', 'POST'])
+def album_creation():
+    form = AlbumCreationForm()
+    db_sess = db_session.create_session()
+    user = flask_login.current_user
+    return AlbumCreationPage(app, user, db_sess, form).response()
 
 
 if __name__ == '__main__':
