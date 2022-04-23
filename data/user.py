@@ -9,9 +9,11 @@ class BlacklandUser(SqlAlchemyBase, UserMixin):
     __tablename__ = "user"
 
     id = Column(sqlalchemy.Integer, primary_key=True, autoincrement=True, nullable=False)
+    name = Column(sqlalchemy.String, nullable=False)
     email = Column(sqlalchemy.String, unique=True, nullable=False)
     password = Column(sqlalchemy.String, nullable=False)
     description = Column(sqlalchemy.String, nullable=True)
+    avatar_url = Column(sqlalchemy.String, nullable=True)
     albums = orm.relation("Album", back_populates='author')
 
     def check_password(self, password):

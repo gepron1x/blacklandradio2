@@ -53,9 +53,11 @@ def register():
                                    message="Такой пользователь уже есть")
         user = BlacklandUser(
             email=form.email.data,
+            name=form.name.data,
             password=generate_password_hash(form.password.data),
             description=form.description.data
         )
+
         db_sess.add(user)
         db_sess.commit()
         return redirect('/index')
@@ -95,7 +97,7 @@ def logout():
 @app.route('/my_profile')
 @login_required
 def my_profile():
-    img_path = 'static/img/img.png'
+    img_path = url_for("static", filename="blacklandradio.png")
     return render_template('my_profile.html', title='Мой профиль', path=img_path)
 
 
