@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {% if current_user.is_authenticated %}
+            <h1 align="center">{{ current_user.email }}</h1>
+        {% endif %}
+    </form>
+{% endblock %}

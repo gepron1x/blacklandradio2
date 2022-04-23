@@ -92,5 +92,11 @@ def logout():
     return redirect("/login")
 
 
+@app.route('/my_profile')
+@login_required
+def my_profile():
+    return render_template('my_profile.html', title='Мой профиль')
+
+
 if __name__ == '__main__':
     main()
