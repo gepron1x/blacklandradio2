@@ -49,7 +49,7 @@ class AlbumCreationPage(Page):
             self.db_session.flush()
 
             print("????")
-            (os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id)))
+            os.mkdir(os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id)))
             self.save_cover(album)
             print("????")
             self.save_songs(album)

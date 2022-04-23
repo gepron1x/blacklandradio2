@@ -15,7 +15,7 @@ from pages.album_creation_page import AlbumCreationPage
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-app.config['UPLOAD_FOLDER'] = '/cdn/albums/'
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'cdn', 'albums')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
