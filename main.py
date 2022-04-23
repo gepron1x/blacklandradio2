@@ -58,7 +58,7 @@ def register():
         )
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/login')
+        return redirect('/index')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -90,6 +90,13 @@ def album_creation():
 def logout():
     logout_user()
     return redirect("/login")
+
+
+@app.route('/my_profile')
+@login_required
+def my_profile():
+    img_path = 'static/img/img.png'
+    return render_template('my_profile.html', title='Мой профиль', path=img_path)
 
 
 if __name__ == '__main__':

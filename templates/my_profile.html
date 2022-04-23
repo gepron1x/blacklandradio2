@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {% if current_user.is_authenticated %}
+            <h1 align="center">{{ current_user.email }}</h1>
+            <h2 align="center">{{ current_user.description }}</h2>
+            <img src={{path}} width="400" height="400">
+        {% endif %}
+    </form>
+{% endblock %}
