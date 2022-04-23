@@ -17,20 +17,17 @@ class AlbumCreationPage(Page):
         self.form = form
 
     def save_cover(self, album):
-        cover_file_name = f"cover{os.path.splitext(self.form.cover.data)[1]}"
-        print(cover_file_name)
+        print(self.form.cover.data)
+        cover_file_name = f"cover{os.path.splitext(self.form.cover.data.filename)[1]}"
         cover_url = os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id), cover_file_name)
-        print(cover_file_name)
-        print(request.files)
-        request.files["cover"].save(cover_url)
+        self.form.cover.data.save(cover_url)
         album.cover_url = cover_url
 
     def save_songs(self, album):
         print(self.form.songs.data)
         for song_file in self.form.songs.data:
-            print("hey")
-            song_url = os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id), song_file)
-            request.files[song_file].save(song_url)
+            song_url = os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id), song_file.filename)
+            song_file.save(song_url)
             song = Song(url=song_url, album_id=album.id)
             self.db_session.add(song)
 
@@ -39,6 +36,7 @@ class AlbumCreationPage(Page):
             map(lambda g: g.name, self.db_session.query(Genre).all())
         )
         if self.form.validate_on_submit():
+            print(request.method == "POST")
             print("works")
             album = Album(
                 name=self.form.name.data,
@@ -51,6 +49,7 @@ class AlbumCreationPage(Page):
             self.db_session.flush()
 
             print("????")
+            (os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id)))
             self.save_cover(album)
             print("????")
             self.save_songs(album)
