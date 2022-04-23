@@ -32,6 +32,11 @@ def load_user(user_id):
     return db_sess.query(BlacklandUser).get(user_id)
 
 
+@app.route("/")
+def main():
+    return redirect("/index")
+
+
 @app.route("/index")
 def index():
     return render_template("main_page.html", title="Blackland Radio")
