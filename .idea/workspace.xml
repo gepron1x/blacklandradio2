@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="787a40ed-af16-451a-911a-6d5db8418c2e" name="Changes" comment="minor fixes and .gitignore">
+    <list default="true" id="787a40ed-af16-451a-911a-6d5db8418c2e" name="Changes" comment="album creation almost working">
+      <change afterPath="$PROJECT_DIR$/pages/album_page.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/album_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/album.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/album.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/db_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/db_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/genre.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/thisshouldexist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/song.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/song.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/album_creation_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/album_creation_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/album_creation.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/album_creation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -46,7 +56,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -163,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650720361546</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="album creation almost working">
+      <created>1650725189993</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1650725189993</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -193,7 +210,8 @@
     <MESSAGE value="add f" />
     <MESSAGE value="add file" />
     <MESSAGE value="minor fixes and .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor fixes and .gitignore" />
+    <MESSAGE value="album creation almost working" />
+    <option name="LAST_COMMIT_MESSAGE" value="album creation almost working" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

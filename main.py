@@ -12,6 +12,7 @@ from data.user import BlacklandUser
 from form.album_creation import AlbumCreationForm
 from form.auth import RegisterForm, LoginForm
 from pages.album_creation_page import AlbumCreationPage
+from pages.album_page import AlbumPage
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -23,6 +24,12 @@ login_manager.init_app(app)
 
 def main():
     db_session.global_init("db/blacklandradio.db")
+    db_sess = db_session.create_session()
+    genres = ["Рок", "Хип-Хоп", "Шансон"]
+    for genre in genres:
+        if not db_sess.query(Genre).filter(Genre.name == genre).first():
+            db_sess.add(Genre(name=genre))
+    db_sess.commit()
     app.run()
 
 
@@ -33,10 +40,6 @@ def load_user(user_id):
 
 
 @app.route("/")
-def main():
-    return redirect("/index")
-
-
 @app.route("/index")
 def index():
     return render_template("main_page.html", title="Blackland Radio")
@@ -82,6 +85,13 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route("/albums/<int:album_id>")
+def get_album(album_id):
+    db_sess = db_session.create_session()
+    album = db_sess.query(Album).filter(Album.id == album_id).first()
+    return AlbumPage(app, db_sess, album).response()
 
 
 @app.route('/albums/create', methods=['GET', 'POST'])

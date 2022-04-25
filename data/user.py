@@ -21,3 +21,28 @@ class BlacklandUser(SqlAlchemyBase, UserMixin):
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
+
+    def get_id(self):
+        return self.id
+
+    def get_name(self):
+        return self.name
+
+    def get_email(self):
+        return self.email
+
+    def get_description(self):
+        return self.description
+
+    def get_avatar(self):
+        return self.avatar_url
+
+    def get_albums(self):
+        return self.albums
+
+    def set_name(self, name):
+        self.name = name
+
+    def set_description(self, description):
+        self.description = description
+

@@ -21,14 +21,18 @@ class AlbumCreationPage(Page):
         cover_file_name = f"cover{os.path.splitext(self.form.cover.data.filename)[1]}"
         cover_url = os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id), cover_file_name)
         self.form.cover.data.save(cover_url)
-        album.cover_url = cover_url
+        album.cover_url = url_for('static', filename=f"/cdn/albums/{album.id}/{cover_file_name}")
 
     def save_songs(self, album):
         print(self.form.songs.data)
         for song_file in self.form.songs.data:
             song_url = os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id), song_file.filename)
+            name = os.path.splitext(song_file.filename)[0]
             song_file.save(song_url)
-            song = Song(url=song_url, album_id=album.id)
+            song = Song(name=name,
+                        url=url_for('static', filename=f"/cdn/albums/{album.id}/{song_file.filename}"),
+                        album_id=album.id)
+
             self.db_session.add(song)
 
     def response(self):
@@ -36,8 +40,6 @@ class AlbumCreationPage(Page):
             map(lambda g: g.name, self.db_session.query(Genre).all())
         )
         if self.form.validate_on_submit():
-            print(request.method == "POST")
-            print("works")
             album = Album(
                 name=self.form.name.data,
                 description=self.form.description.data,
@@ -48,12 +50,9 @@ class AlbumCreationPage(Page):
             self.db_session.add(album)
             self.db_session.flush()
 
-            print("????")
             os.mkdir(os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id)))
             self.save_cover(album)
-            print("????")
             self.save_songs(album)
-            print("????")
             self.db_session.commit()
             return redirect("/index")
 

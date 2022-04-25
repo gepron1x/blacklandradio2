@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="bg-light p-5 rounded">
+    <h1> {{ album.name }} </h1>
+    <img src="{{ album.cover_url }}" width="400" height="400">
+    <h2> {{ album.year }} </h2>
+
+    <h2>Описание</h2>
+    <p class="lead">
+        {{ album.description }}
+    </p>
+
+    <h3>{{ album.genre.name }}</h3>
+
+
+
+    {% for song in album.songs %}
+        <div class="bg-light p-5 rounded">
+            <h3>{{ song.name }}</h3>
+            <audio controls>
+                <source src="{{ song.url }}" type="audio/mpeg">
+                <p>Ваш браузер не поддерживает HTML5 аудио.</p>
+            </audio>
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
