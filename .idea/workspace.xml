@@ -5,18 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="787a40ed-af16-451a-911a-6d5db8418c2e" name="Changes" comment="album creation almost working">
-      <change afterPath="$PROJECT_DIR$/pages/album_page.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/album_page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/comment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/form/comment_form.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/album.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/album.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/db_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/db_session.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/genre.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/thisshouldexist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/song.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/song.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/album_creation_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/album_creation_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/album_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/album_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/album_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/album_page.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

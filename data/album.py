@@ -32,6 +32,8 @@ class Album(SqlAlchemyBase):
 
     songs = orm.relation("Song", back_populates='album')
 
+    comments = orm.relation("Comment", back_populates='album')
+
     def get_id(self):
         return self.id
 
@@ -55,6 +57,9 @@ class Album(SqlAlchemyBase):
 
     def get_songs(self):
         return self.songs
+
+    def get_comments(self):
+        return self.comments
 
     def set_name(self, name):
         self.name = name

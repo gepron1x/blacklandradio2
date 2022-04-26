@@ -87,7 +87,7 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-@app.route("/albums/<int:album_id>")
+@app.route("/albums/<int:album_id>", methods=['GET', 'POST'])
 def get_album(album_id):
     db_sess = db_session.create_session()
     album = db_sess.query(Album).filter(Album.id == album_id).first()
