@@ -1,9 +1,8 @@
-{% extends "base.html" %}
+{% extends "album_list_base.html" %}
 
-{% block content %}
-    <form action="" method="post">
-        {% if current_user.is_authenticated %}
-            <h1>Здравствуйте, {{ current_user.name }}</h1>
-        {% endif %}
-    </form>
+{% block album_list_header %}
+    {% if current_user.is_authenticated %}
+        <h1>Здравствуйте, {{ current_user.name }}</h1>
+    {% endif %}
+    <h1>Новые альбомы</h1>
 {% endblock %}

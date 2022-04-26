@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% block album_list_header %}{% endblock %}
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for album in albums %}
+            <div class="card" style="width: 18rem;">
+              <img src="{{ album.cover_url }}" class="card-img-top" alt="No image" height="300" width="200">
+              <div class="card-body">
+                  <h5 class="card-title">{{ album.author.name }} - {{ album.name }}</h5>
+                  <h4 class="card-text">{{ album.year }}</h4>
+                <p class="card-text">{{ album.description }}</p>
+                <a href="/albums/{{ album.id }}" class="btn btn-primary">Слушать</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

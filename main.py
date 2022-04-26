@@ -42,7 +42,8 @@ def load_user(user_id):
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("main_page.html", title="Blackland Radio")
+    db_sess = db_session.create_session()
+    return render_template("main_page.html", title="Blackland Radio", albums=db_sess.query(Album).all())
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -100,6 +101,13 @@ def album_creation():
     db_sess = db_session.create_session()
     user = flask_login.current_user
     return AlbumCreationPage(app, user, db_sess, form).response()
+
+
+@app.route("/albums/")
+def albums():
+    db_sess = db_session.create_session()
+    albumz = db_sess.query(Album).all()
+    return render_template("album_list_base.html", albums=albumz)
 
 
 @app.route('/logout')

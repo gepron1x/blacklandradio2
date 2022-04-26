@@ -17,4 +17,15 @@ class Comment(SqlAlchemyBase):
     author_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("user.id"), nullable=False)
     author = orm.relation("BlacklandUser")
 
+    def get_id(self):
+        return self.id
+
+    def get_content(self):
+        return self.content
+
+    def get_album(self):
+        return self.album
+
+    def get_author(self):
+        return self.author
 
