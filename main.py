@@ -120,8 +120,10 @@ def logout():
 @app.route('/my_profile')
 @login_required
 def my_profile():
+    db_sess = db_session.create_session()
+    albumz = db_sess.query(Album).all()
     img_path = url_for("static", filename="blacklandradio.png")
-    return render_template('my_profile.html', title='Мой профиль', path=img_path)
+    return render_template('my_profile.html', title='Мой профиль', path=img_path, albums=albumz)
 
 
 if __name__ == '__main__':

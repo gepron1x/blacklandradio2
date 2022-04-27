@@ -6,6 +6,24 @@
             <h1 align="right">{{ current_user.name }}</h1>
             <h2 align="right">{{ current_user.description }}</h2>
             <img src="{{ path }}" width="400" height="400">
+            <h1>Ваши альбомы:</h1>
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-3">
+          {% for item in albums %}
+          {% if item.author_id == current_user.id %}
+            <div class="card" style="width: 18rem;">
+              <img src="{{ item.cover_url }}" class="card-img-top" alt="No image" height="200" width="200">
+              <div class="card-body">
+                  <h5 class="card-title">{{ item.name }}</h5>
+                  <h4 class="card-text">{{ item.year }}</h4>
+                <p class="card-text">{{ item.description }}</p>
+                <a href="/albums/{{ item.id }}" class="btn btn-primary">Слушать</a>
+              </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+      </div>
+    </div>
         {% endif %}
 </div>
 {% endblock %}
