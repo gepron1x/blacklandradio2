@@ -2,35 +2,68 @@
 
 {% block content %}
 <h1>Создание альбома</h1>
+<div class="bg-light p-5 border rounded">
     <form class="login_form" method="post" enctype="multipart/form-data" action="">
         {{ form.hidden_tag() }}
     <div class="form-group">
         <p>
             {{ form.name.label }}<br>
             {{ form.name }}
+            {% for error in form.name.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </p>
+
         <p>{{ form.year.label }}<br>
            {{ form.year }}
+            {% for error in form.year.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </p>
         <p>
             {{ form.description.label }}<br>
             {{ form.description }}
+            {% for error in form.description.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </p>
         <p>
             {{ form.cover.label }}<br>
             <input type="file" class="form-control-file" id="photo" name="cover">
+            {% for error in form.cover.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </p>
         <p>
             {{ form.songs.label }}<br>
             {{ form.songs }}
+            {% for error in form.songs.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </p>
         <p>
             {{ form.genre.label }}<br>
             {{ form.genre }}
+            {% for error in form.genre.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
         </p>
 
         {{ form.submit }}
         <div>{{ message }}</div>
     </div>
     </form>
+</div>
 {% endblock %}

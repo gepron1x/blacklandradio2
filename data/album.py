@@ -1,5 +1,6 @@
 import sqlalchemy
 from sqlalchemy import Column, orm
+from sqlalchemy.orm import relationship
 
 from data.db_session import SqlAlchemyBase
 
@@ -24,15 +25,23 @@ class Album(SqlAlchemyBase):
     year = Column(sqlalchemy.Integer, nullable=False)
     cover_url = Column(sqlalchemy.String, nullable=True)
 
-    author_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("user.id"), nullable=False)
-    author = orm.relation("BlacklandUser")
+    author_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    author = relationship("BlacklandUser", back_populates="albums")
 
     genre_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("genre.id"), nullable=False)
     genre = orm.relation("Genre")
 
-    songs = orm.relation("Song", back_populates='album')
+    songs = relationship(
+        "Song", back_populates="album",
+        cascade="all, delete",
+        passive_deletes=True
+    )
 
-    comments = orm.relation("Comment", back_populates='album')
+    comments = relationship(
+        "Comment", back_populates="album",
+        cascade="all, delete",
+        passive_deletes=True
+    )
 
     def get_id(self):
         return self.id

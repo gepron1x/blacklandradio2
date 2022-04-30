@@ -1,6 +1,7 @@
 import os
 
 from flask import request, url_for, render_template
+from sqlalchemy.orm import Session
 from werkzeug.utils import redirect
 
 from data.album import Genre, Album
@@ -10,7 +11,7 @@ from pages.page import Page
 
 class AlbumCreationPage(Page):
 
-    def __init__(self, app, user, db_session, form):
+    def __init__(self, app, user, db_session: Session, form):
         self.app = app
         self.user = user
         self.db_session = db_session
@@ -24,7 +25,7 @@ class AlbumCreationPage(Page):
         album.cover_url = url_for('static', filename=f"/cdn/albums/{album.id}/{cover_file_name}")
 
     def save_songs(self, album):
-        print(self.form.songs.data)
+
         for song_file in self.form.songs.data:
             song_url = os.path.join(self.app.config['UPLOAD_FOLDER'], str(album.id), song_file.filename)
             name = os.path.splitext(song_file.filename)[0]
@@ -54,6 +55,6 @@ class AlbumCreationPage(Page):
             self.save_cover(album)
             self.save_songs(album)
             self.db_session.commit()
-            return redirect("/index")
+            return redirect(f"/albums/{album.id}")
 
         return render_template('album_creation.html', title="Создание альбома", form=self.form)

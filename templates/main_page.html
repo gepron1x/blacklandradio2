@@ -5,4 +5,7 @@
         <h1>Здравствуйте, {{ current_user.name }}</h1>
     {% endif %}
     <h1>Новые альбомы</h1>
+    {% if albums|length == 0 %}
+        <h2 align="Center">Кажется, альбомов пока нет. Самое время это исправить!</h2>
+    {% endif %}
 {% endblock %}

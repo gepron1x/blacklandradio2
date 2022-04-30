@@ -1,5 +1,6 @@
 import sqlalchemy
 from sqlalchemy import Column, orm
+from sqlalchemy.orm import relationship
 
 from data.db_session import SqlAlchemyBase
 
@@ -11,10 +12,10 @@ class Comment(SqlAlchemyBase):
     id = Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     content = Column(sqlalchemy.String, nullable=False)
 
-    album_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("album.id"), nullable=False)
-    album = orm.relation("Album")
+    album_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("album.id", ondelete="CASCADE"), nullable=False)
+    album = relationship("Album", back_populates="comments")
 
-    author_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("user.id"), nullable=False)
+    author_id = Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
     author = orm.relation("BlacklandUser")
 
     def get_id(self):

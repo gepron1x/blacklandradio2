@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добавить новый жанр</h1>
+<div class="bg-light p-5 border rounded">
+    <form class="login_form" method="post" action="">
+        {{ form.hidden_tag() }}
+            {{ form.name.label }}<br>
+            {{ form.name }}
+            {% for error in form.name.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {{ form.submit }}
+    </form>
+</div>
+{% endblock %}

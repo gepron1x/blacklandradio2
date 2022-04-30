@@ -1,0 +1,17 @@
+{% extends "album_list_base.html" %}
+
+{% block album_list_header %}
+<div class="bg-light p-5 border rounded">
+    <h1> {{ user.name }} </h1>
+    <img src="{{ user.avatar_url }}" width="400" height="400">
+
+    <h2>О себе</h2>
+    <p class="lead">
+        {{ user.description }}
+    </p>
+    {% if current_user.is_authenticated and current_user == user %}
+        <a class="nav-link" href="/profile/edit">Редактировать...</a>
+    {% endif %}
+    <h1>Альбомы пользователя</h1>
+</div>
+{% endblock %}

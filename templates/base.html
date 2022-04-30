@@ -21,6 +21,7 @@
           <a class="nav-link active" aria-current="page" href="/index">Главная страница</a>
           <a class="nav-link" href="/albums/search">Поиск альбомов</a>
           {% if current_user.is_authenticated %}
+            <a class="nav-link" href="/create_genre">Добавить жанр</a>
             <a class="nav-link" href="/albums/create">Создать альбом</a>
             <a class="nav-link" href="/my_profile">Мой профиль</a>
           {% endif %}

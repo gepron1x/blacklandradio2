@@ -3,7 +3,7 @@
 
 
 <div class="bg-light p-5 border rounded">
-    <h1> {{ album.name }} </h1>
+    <h1><a href="/profile/{{ album.author_id }}">{{ album.author.name }}</a> - {{ album.name }} </h1>
     <img src="{{ album.cover_url }}" width="400" height="400">
     <h2> {{ album.year }} </h2>
 
@@ -33,13 +33,18 @@
             <p>
                 {{ comment_form.content.label }}
                 {{ comment_form.content }}
+                {% for error in comment_form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
             </p>
             <p>{{ comment_form.submit }}</p>
         </form>
     </div>
     {% for comment in album.comments %}
         <div class="h-100 p-5 bg-light border rounded-3">
-            <p>{{ comment.author.name }}</p>
+            <p> <img src="{{ comment.author.avatar_url }}" height="100" width="100"> <a href="/profile/{{ comment.author_id }}">{{ comment.author.name }}</a></p>
             <p>{{ comment.content }}</p>
         </div>
     {% endfor %}
