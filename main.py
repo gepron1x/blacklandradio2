@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 from flask import abort
 
-from api import albums
+from api import albums_api
 from data import db_session
 from data.album import Genre, Album
 from data.user import BlacklandUser
@@ -42,10 +42,11 @@ def main():
         if not db_sess.query(Genre).filter(Genre.name == genre).first():
             db_sess.add(Genre(name=genre))
     db_sess.commit()
-    api.add_resource(albums.AlbumsByIdResource, '/api/v2/albums/<int:album_id>')
-    api.add_resource(albums.AlbumsResource, '/api/v2/albums/')
-    api.add_resource(albums.SongFileResource, '/api/v2/songs/<int:song_id>')
-    api.add_resource(albums.AlbumCoverResource, '/api/v2/albums/cover/<int:album_id>')
+    api.add_resource(albums_api.AlbumsByIdResource, '/api/v2/albums/<int:album_id>')
+    api.add_resource(albums_api.AlbumsResource, '/api/v2/albums/')
+    api.add_resource(albums_api.SongFileResource, '/api/v2/songs/<int:song_id>')
+    api.add_resource(albums_api.AlbumCoverResource, '/api/v2/albums/cover/<int:album_id>')
+
     app.run()
 
 
