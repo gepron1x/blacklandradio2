@@ -1,11 +1,12 @@
 import sqlalchemy
 from sqlalchemy import Column, orm
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
 from data.db_session import SqlAlchemyBase
 
 
-class Comment(SqlAlchemyBase):
+class Comment(SqlAlchemyBase, SerializerMixin):
 
     __tablename__ = "comment"
 

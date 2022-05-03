@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 from flask import abort
 
+from api import albums
 from data import db_session
 from data.album import Genre, Album
 from data.user import BlacklandUser
@@ -19,8 +20,10 @@ from form.genre_form import GenreForm
 from pages.album_creation_page import AlbumCreationPage
 from pages.album_page import AlbumPage
 from pages.profile_editor_page import ProfileEditorPage
+from flask_restful import Api
 
 app = Flask(__name__)
+api = Api(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'cdn', 'albums')
 
@@ -39,6 +42,10 @@ def main():
         if not db_sess.query(Genre).filter(Genre.name == genre).first():
             db_sess.add(Genre(name=genre))
     db_sess.commit()
+    api.add_resource(albums.AlbumsByIdResource, '/api/v2/albums/<int:album_id>')
+    api.add_resource(albums.AlbumsResource, '/api/v2/albums/')
+    api.add_resource(albums.SongFileResource, '/api/v2/songs/<int:song_id>')
+    api.add_resource(albums.AlbumCoverResource, '/api/v2/albums/cover/<int:album_id>')
     app.run()
 
 
@@ -79,6 +86,7 @@ def register():
 
         db_sess.add(user)
         db_sess.commit()
+        login_user(user, remember=True)
         return redirect('/index')
     return render_template('register.html', title='Регистрация', form=form)
 

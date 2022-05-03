@@ -1,11 +1,12 @@
 import sqlalchemy
 from sqlalchemy import Column, orm
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
 from data.db_session import SqlAlchemyBase
 
 
-class Genre(SqlAlchemyBase):
+class Genre(SqlAlchemyBase, SerializerMixin):
     __tablename__ = "genre"
     id = Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = Column(sqlalchemy.String, nullable=True, unique=True)
@@ -17,7 +18,7 @@ class Genre(SqlAlchemyBase):
         return self.name
 
 
-class Album(SqlAlchemyBase):
+class Album(SqlAlchemyBase, SerializerMixin):
     __tablename__ = "album"
     id = Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = Column(sqlalchemy.String, nullable=False)

@@ -1,11 +1,12 @@
 import sqlalchemy
 from sqlalchemy import Column, orm
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
 from data.db_session import SqlAlchemyBase
 
 
-class Song(SqlAlchemyBase):
+class Song(SqlAlchemyBase, SerializerMixin):
     __tablename__ = "song"
     id = Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = Column(sqlalchemy.String, nullable=True)

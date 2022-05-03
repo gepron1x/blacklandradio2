@@ -2,6 +2,7 @@ import sqlalchemy
 from flask_login import UserMixin
 from sqlalchemy import Column, orm
 from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
 from .db_session import SqlAlchemyBase
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -16,7 +17,7 @@ favorites = sqlalchemy.Table(
 )
 
 
-class BlacklandUser(SqlAlchemyBase, UserMixin):
+class BlacklandUser(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = "user"
 
     id = Column(sqlalchemy.Integer, primary_key=True, autoincrement=True, nullable=False)
