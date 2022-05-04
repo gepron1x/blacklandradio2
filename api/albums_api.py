@@ -61,7 +61,7 @@ class AlbumsByIdResource(Resource):
         db_sess = db_session.create_session()
         user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
         if not user or not user.check_password(password):
-            abort(402)
+            abort(401)
 
         album = db_sess.query(Album).filter(Album.id == album_id).first()
 
@@ -69,7 +69,7 @@ class AlbumsByIdResource(Resource):
             abort(404)
 
         if album.author != user:
-            abort(402)
+            abort(401)
 
         db_sess.delete(album)
         shutil.rmtree(f"static/cdn/albums/{album.id}")

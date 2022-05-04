@@ -151,3 +151,4 @@ fabric.properties
 /static/cdn/
 /db/blacklandradio.db
 /.idea/*
+/.idea/

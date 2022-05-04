@@ -4,7 +4,6 @@ import flask
 from flask import jsonify, request, url_for
 from flask_restful import Resource, abort
 
-
 from data import db_session
 
 from marshmallow import Schema, fields
@@ -41,7 +40,6 @@ class UsersByIdResource(Resource):
             }
         )
 
-
     def delete(self, user_id):
         schema = LoginAndPasswordSchema()
         errors = schema.validate(request.args)
@@ -53,7 +51,7 @@ class UsersByIdResource(Resource):
         db_sess = db_session.create_session()
         user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
         if not user or not user.check_password(password):
-            abort(402)
+            abort(401)
 
         user = db_sess.query(BlacklandUser).get(user_id)
 
