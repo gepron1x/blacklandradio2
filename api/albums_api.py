@@ -134,3 +134,4 @@ class AlbumCoverResource(Resource):
         filename = album.cover_url.split('/')[-1]
 
         return flask.send_file(os.path.join("static", "cdn", "albums", str(album_id), filename))
+
