@@ -1,15 +1,15 @@
 import os.path
 import shutil
 
-import flask
 import flask_login
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, url_for
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 from flask import abort
 
 from api import albums_api
+from api import users_api
 from data import db_session
 from data.album import Genre, Album
 from data.user import BlacklandUser
@@ -46,6 +46,11 @@ def main():
     api.add_resource(albums_api.AlbumsResource, '/api/v2/albums/')
     api.add_resource(albums_api.SongFileResource, '/api/v2/songs/<int:song_id>')
     api.add_resource(albums_api.AlbumCoverResource, '/api/v2/albums/cover/<int:album_id>')
+
+    api.add_resource(users_api.UsersByIdResource, '/api/v2/users/<int:user_id>')
+    api.add_resource(users_api.UsersResource, '/api/v2/users/')
+    api.add_resource(users_api.UsersByNameResource, '/api/v2/users/search')
+    api.add_resource(users_api.UserAvatarResource, '/api/v2/users/cover/<int:user_id>')
 
     app.run()
 
