@@ -197,11 +197,49 @@ def delete_album(album_id):
     return redirect("/index")
 
 
+@login_required
+@app.route("/profile/favorites/add/<int:album_id>")
+def add_to_favorites(album_id):
+    db_sess = db_session.create_session()
+    album = db_sess.query(Album).filter(Album.id == album_id).first()
+    if not album:
+        return abort(404)
+    user = db_sess.merge(current_user)
+    user.favorites.append(album)
+    db_sess.commit()
+    return redirect(f"/albums/{album_id}")
+
+
+@login_required
+@app.route("/profile/favorites/remove/<int:album_id>")
+def remove_from_favorites(album_id):
+    db_sess = db_session.create_session()
+    album = db_sess.query(Album).filter(Album.id == album_id).first()
+    if not album:
+        return abort(404)
+    user = db_sess.merge(current_user)
+    user.favorites.remove(album)
+    db_sess.merge(album)
+    db_sess.commit()
+    return redirect(f"/albums/{album_id}")
+
+
+@login_required
+@app.route("/profile/<int:user_id>/favorites")
+def favorites(user_id):
+    db_sess = db_session.create_session()
+    user = db_sess.query(BlacklandUser).filter(BlacklandUser.id == user_id).first()
+    if not user:
+        return abort(404)
+    return render_template("favorites.html", user=user, albums=user.favorites)
+
+
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
     db_sess = db_session.create_session()
     user = db_sess.query(BlacklandUser).filter(BlacklandUser.id == user_id).first()
     if user is None:
+
         return abort(404)
     return render_template("profile.html", user=user, albums=user.albums, show_delete_button=True)
 

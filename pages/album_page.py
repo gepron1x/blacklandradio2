@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from data.album import Album
 from data.comment import Comment
+from data.user import BlacklandUser
 from form.comment_form import CommentForm
 from pages.page import Page
 
@@ -17,6 +18,7 @@ class AlbumPage(Page):
 
     def response(self):
         form = CommentForm()
+        user = self.db_session.merge(current_user)
         if form.validate_on_submit():
             comment = Comment(
                 content=form.content.data,
@@ -24,6 +26,6 @@ class AlbumPage(Page):
                 author_id=current_user.id
             )
             self.db_session.add(comment)
-            return render_template("album_page.html", title="Альбом", album=self.album, comment_form=form)
+            return render_template("album_page.html", title="Альбом", album=self.album, user=user, comment_form=form)
 
-        return render_template("album_page.html", title="Альбом", album=self.album, comment_form=form)
+        return render_template("album_page.html", title="Альбом", album=self.album, user=user, comment_form=form)

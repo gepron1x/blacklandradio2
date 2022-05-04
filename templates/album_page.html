@@ -13,8 +13,13 @@
     </p>
 
     <h3>{{ album.genre.name }}</h3>
-
-
+    {% if current_user.is_authenticated %}
+        {% if album not in user.favorites %}
+            <a class="btn btn-primary" href="/profile/favorites/add/{{ album.id }}">Добавить в любимые</a>
+        {% else %}
+            <a class="btn btn-danger" href="/profile/favorites/remove/{{ album.id }}">Удалить из любимых альбомов</a>
+        {% endif %}
+    {% endif %}
 
     {% for song in album.songs %}
         <div class="h-100 p-5 bg-light border rounded-3">

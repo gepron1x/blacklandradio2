@@ -10,8 +10,9 @@
         {{ user.description }}
     </p>
     {% if current_user.is_authenticated and current_user == user %}
-        <a class="nav-link" href="/profile/edit">Редактировать...</a>
+        <a class="btn btn-primary" href="/profile/edit">Редактировать...</a>
     {% endif %}
+    <a class="btn btn-primary" href="/profile/{{ user.id }}/favorites">Любимые альбомы пользователя..</a>
     <h1>Альбомы пользователя</h1>
 </div>
 {% endblock %}
