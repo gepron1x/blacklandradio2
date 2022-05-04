@@ -203,7 +203,7 @@ def profile(user_id):
     user = db_sess.query(BlacklandUser).filter(BlacklandUser.id == user_id).first()
     if user is None:
         return abort(404)
-    return render_template("profile.html", user=user, albums=user.albums)
+    return render_template("profile.html", user=user, albums=user.albums, show_delete_button=True)
 
 
 @login_required
