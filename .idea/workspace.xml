@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="787a40ed-af16-451a-911a-6d5db8418c2e" name="Changes" comment="user's albums">
-      <change afterPath="$PROJECT_DIR$/api/users_api.py" afterDir="false" />
+    <list default="true" id="787a40ed-af16-451a-911a-6d5db8418c2e" name="Changes" comment="users api">
       <change afterPath="$PROJECT_DIR$/api_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/album_edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/profile_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/blacklandradio2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/blacklandradio2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/users_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/users_api.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,8 +105,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.api_test" />
+      <item itemvalue="Python.main" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -207,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650725189993</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="users api">
+      <created>1651666475097</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1651666475097</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,7 +240,8 @@
     <MESSAGE value="add file" />
     <MESSAGE value="minor fixes and .gitignore" />
     <MESSAGE value="album creation almost working" />
-    <option name="LAST_COMMIT_MESSAGE" value="album creation almost working" />
+    <MESSAGE value="users api" />
+    <option name="LAST_COMMIT_MESSAGE" value="users api" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

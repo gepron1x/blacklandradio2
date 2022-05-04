@@ -4,6 +4,7 @@ import flask
 from flask import jsonify, request, url_for
 from flask_restful import Resource, abort
 
+
 from data import db_session
 
 from marshmallow import Schema, fields
@@ -39,6 +40,31 @@ class UsersByIdResource(Resource):
                 'user': user_to_dict(user)
             }
         )
+
+
+    def delete(self, user_id):
+        schema = LoginAndPasswordSchema()
+        errors = schema.validate(request.args)
+        if errors:
+            abort(400)
+        result = schema.dump(request.args)
+        login = result['login']
+        password = result['password']
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
+        if not user or not user.check_password(password):
+            abort(402)
+
+        user = db_sess.query(BlacklandUser).get(user_id)
+
+        if not user:
+            abort(404)
+
+        if not user:
+            return jsonify({'error': 'Not found'})
+        db_sess.delete(user)
+        db_sess.commit()
+        return jsonify({'success': 'OK'})
 
 
 class UsersResource(Resource):
