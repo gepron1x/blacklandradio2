@@ -135,3 +135,61 @@ class AlbumCoverResource(Resource):
 
         return flask.send_file(os.path.join("static", "cdn", "albums", str(album_id), filename))
 
+
+class FavoriteAlbumsResource(Resource):
+
+    def get(self, user_id):
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.id == user_id)
+        if not user:
+            abort(404)
+
+        return jsonify({'users': [album_to_dict(a) for a in user.favorites]})
+
+
+class FavoriteAlbumResource(Resource):
+
+    def post(self, album_id):
+        schema = LoginAndPasswordSchema()
+        errors = schema.validate(request.args)
+        if errors:
+            abort(400)
+        result = schema.dump(request.args)
+        login = result['login']
+        password = result['password']
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
+        if not user or not user.check_password(password):
+            abort(401)
+
+        album = db_sess.query(Album).filter(Album.id == album_id).first()
+
+        if not album:
+            abort(404)
+
+        user.favorites.append(album)
+        db_sess.merge(user)
+        db_sess.commit()
+
+    def delete(self, album_id):
+        schema = LoginAndPasswordSchema()
+        errors = schema.validate(request.args)
+        if errors:
+            abort(400)
+        result = schema.dump(request.args)
+        login = result['login']
+        password = result['password']
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
+        if not user or not user.check_password(password):
+            abort(401)
+
+        album = db_sess.query(Album).filter(Album.id == album_id).first()
+
+        if not album:
+            abort(404)
+
+        user.favorites.remove(album)
+        db_sess.merge(user)
+        db_sess.commit()
+
