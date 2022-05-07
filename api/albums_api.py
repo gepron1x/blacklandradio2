@@ -10,6 +10,7 @@ from data.album import Album
 
 from marshmallow import Schema, fields
 
+from data.comment import Comment
 from data.song import Song
 from data.user import BlacklandUser
 
@@ -17,6 +18,12 @@ from data.user import BlacklandUser
 class LoginAndPasswordSchema(Schema):
     login = fields.Str(required=True)
     password = fields.Str(required=True)
+
+class ContentSchema(Schema):
+    content = fields.Str(required=True)
+
+class IdSchema(Schema):
+    id = fields.Int(required=True)
 
 
 def album_to_dict(album: Album):
@@ -192,4 +199,79 @@ class FavoriteAlbumResource(Resource):
         user.favorites.remove(album)
         db_sess.merge(user)
         db_sess.commit()
+
+
+class CommentResource(Resource):
+
+    def get(self, album_id):
+
+        db_sess = db_session.create_session()
+
+        album = db_sess.query(Album).filter(Album.id == album_id).first()
+
+        if not album:
+            abort(404)
+
+        return [c.to_dict('author_id', 'content') for c in album.comments]
+
+    def post(self, album_id):
+        schema = LoginAndPasswordSchema()
+        errors = schema.validate(request.args)
+        if errors:
+            abort(400)
+        result = schema.dump(request.args)
+        login = result['login']
+        password = result['password']
+
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
+        if not user or not user.check_password(password):
+            abort(401)
+
+        album = db_sess.query(Album).filter(Album.id == album_id).first()
+
+        content_schema = ContentSchema()
+        if schema.validate(request.args):
+            abort(400)
+
+        content = content_schema.dump(request.args)['content']
+
+        if not album:
+            abort(404)
+
+        album.comments.append(Comment(author_id=user.id, album_id=album_id, content=content))
+
+    def delete(self, album_id):
+        schema = LoginAndPasswordSchema()
+        errors = schema.validate(request.args)
+        if errors:
+            abort(400)
+        result = schema.dump(request.args)
+        login = result['login']
+        password = result['password']
+
+        db_sess = db_session.create_session()
+        user = db_sess.query(BlacklandUser).filter(BlacklandUser.email == login).first()
+        if not user or not user.check_password(password):
+            abort(401)
+
+        album = db_sess.query(Album).filter(Album.id == album_id).first()
+        if not album:
+            abort(404)
+
+        id_schema = IdSchema()
+
+        if id_schema.validate(request.args):
+            abort(400)
+
+        comment_id = id_schema.dump(request.args)['id']
+
+        comment = db_sess.query(Comment).filter(Comment.id == comment_id).first()
+
+        if not comment:
+            abort(404)
+
+        db_sess.delete(comment)
+
+        return jsonify({'Success': 'Ok'})
 
