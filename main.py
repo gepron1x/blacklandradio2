@@ -52,6 +52,10 @@ def main():
     api.add_resource(users_api.UsersByNameResource, '/api/v2/users/search')
     api.add_resource(users_api.UserAvatarResource, '/api/v2/users/cover/<int:user_id>')
 
+    api.add_resource(albums_api.CommentResource, 'api/v2/albums/comments/<int:album_id>')
+    api.add_resource(albums_api.FavoriteAlbumResource, 'api/v2/users/favorites/<int:album_id>')
+    api.add_resource(albums_api.FavoriteAlbumsResource, 'api/v2/users/favorites/<int:user_id>')
+
     app.run()
 
 
